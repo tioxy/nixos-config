@@ -1,0 +1,2 @@
+map super+v paste_from_clipboard
+map super+c copy_or_interrupt
