@@ -25,6 +25,22 @@
       };
     };
 
+    programs.ssh = {
+      enable = true;
+      matchBlocks = {
+        "github.com" = {
+          hostname = "github.com";
+          user = "git";
+          identityFile = "~/Keys/git.pem";
+          extraOptions = {
+            UseKeychain = "yes";
+            AddKeysToAgent = "yes";
+            IgnoreUnknown = "UseKeychain";
+          };
+        };
+      };
+    };
+
     xdg.configFile."i3/config".text = builtins.readFile ./i3;
 
     programs.kitty = {
