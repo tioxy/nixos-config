@@ -43,6 +43,45 @@
 
     xdg.configFile."i3/config".text = builtins.readFile ./i3;
 
+    programs.i3status-rust = {
+      enable = true;
+      bars = {
+        default = {
+          blocks = [
+            {
+               block = "disk_space";
+               path = "/";
+               info_type = "available";
+               interval = 60;
+               warning = 20.0;
+               alert = 10.0;
+            }
+            {
+              block = "memory";
+              format_mem = " $icon $mem_used_percents ";
+              format_swap = " $icon $swap_used_percents ";
+            }
+            {
+              block = "cpu";
+              interval = 1;
+            }
+            {
+              block = "load";
+              interval = 1;
+              format = " $icon $1m ";
+            }
+            {
+              block = "time";
+              interval = 60;
+              format = " $timestamp.datetime(f:'%a %d/%m %R') ";
+            }
+          ];
+          icons = "awesome6";
+          theme = "srcery";
+        };
+      };
+    };
+
     programs.kitty = {
       enable = true;
       extraConfig = builtins.readFile ./kitty;
@@ -74,60 +113,94 @@
 
       plugins = with pkgs.vimPlugins; [
         # Theme
-        dracula-nvim
-        nerdcommenter
+        {
+          plugin = nord-nvim;
+          type = "lua";
+          config = builtins.readFile(./neovim/nord.lua);
+        }
 
         # Filetree
-        telescope-nvim
-        plenary-nvim
+        {
+          plugin = telescope-nvim;
+          type = "lua";
+          config = builtins.readFile(./neovim/telescope.lua);
+        }
         telescope-fzf-native-nvim
-        nvim-treesitter
-        nvim-web-devicons
         telescope-file-browser-nvim
 
+        # Syntax highligh
+        nvim-treesitter
+        nvim-treesitter-parsers.go
+        nvim-treesitter-parsers.java
+        nvim-treesitter-parsers.json
+        nvim-treesitter-parsers.python
+        nvim-treesitter-parsers.yaml
+
         # Snippets
-        ultisnips
+        {
+          plugin = ultisnips;
+          config = ''
+            let g:UltiSnipsExpandTrigger="<tab>"
+            let g:UltiSnipsJumpForwardTrigger="<c-b>"
+            let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+            let g:UltiSnipsEditSplit="vertical"
+          '';
+        }
         vim-snippets
 
         # Start
         vim-startify
-       
-        # Helpers
+
+        # Tab/Status bars
+        {
+          plugin = barbar-nvim;
+          type = "lua";
+          config = builtins.readFile(./neovim/barbar.lua);
+        }
+        vim-airline
+        {
+          plugin = vim-airline-themes;
+          type = "lua";
+          config = builtins.readFile(./neovim/airline-themes.lua);
+        }
+
+        # Code completion
         coc-nvim
+        coc-snippets
+        telescope-coc-nvim
+        coc-git
+        coc-go
+        coc-java
+        coc-json
+        coc-python
+        coc-yaml
+
+        # Helpers
+        gitsigns-nvim # barbar
+        nvim-web-devicons
+        plenary-nvim # telescope
+        vim-gitgutter
         nerdcommenter
+        {
+          plugin = nerdcommenter;
+          config = ''
+             filetype plugin on
+             let g:NERDCreateDefaultMappings = 1
+             let g:NERDSpaceDelims = 1
+             let g:NERDCompactSexyComs = 1
+             let g:NERDDefaultAlign = 'left'
+             let g:NERDAltDelims_java = 1
+             let g:NERDAltDelims_go = 1
+             let g:NERDAltDelims_py = 1
+             let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+             let g:NERDCommentEmptyLines = 1
+             let g:NERDTrimTrailingWhitespace = 1
+             let g:NERDToggleCheckAllLines = 1
+          '';
+        }
       ];
 
-      extraConfig = ''
-        ${builtins.readFile ./neovim/init.vim} 
-
-        " lua scripts
-        " lua << EOF
-        " EOF
-
-        " Vim theme
-        syntax enable
-        colorscheme dracula
-
-        " nercommenter plugin
-        filetype plugin on
-        let g:NERDCreateDefaultMappings = 1
-        let g:NERDSpaceDelims = 1
-        let g:NERDCompactSexyComs = 1
-        let g:NERDDefaultAlign = 'left'
-        let g:NERDAltDelims_java = 1
-        let g:NERDAltDelims_go = 1
-        let g:NERDAltDelims_py = 1
-        let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-        let g:NERDCommentEmptyLines = 1
-        let g:NERDTrimTrailingWhitespace = 1
-        let g:NERDToggleCheckAllLines = 1
-    
-        " utilsnips plugin
-        let g:UltiSnipsExpandTrigger="<tab>"
-        let g:UltiSnipsJumpForwardTrigger="<c-b>"
-        let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-        let g:UltiSnipsEditSplit="vertical"
-      '';
+      extraConfig = builtins.readFile(./neovim/init.vim);
     };
 
     services.gpg-agent = {

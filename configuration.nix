@@ -65,21 +65,12 @@
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   environment.systemPackages = with pkgs; [
     neovim
     wget
     git
     kitty
+    gtkmm3 # copy/paste in vmware tools
   ];
 
   programs.mtr.enable = true;
