@@ -25,10 +25,6 @@
       };
     };
 
-    services.dunst = {
-      enable = true;
-    };
-
     programs.ssh = {
       enable = true;
       matchBlocks = {
@@ -112,6 +108,7 @@
 
       interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" (
       [] ++ [
+        (builtins.readFile ./fish/done.fish)
         (builtins.readFile ./fish/tide.fish)
         (builtins.readFile ./fish/config.fish)
         "set -g SHELL ${pkgs.fish}/bin/fish"
