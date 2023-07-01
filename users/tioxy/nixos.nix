@@ -15,6 +15,21 @@
         ripgrep # telescope
         fd # telescope
         nodejs # coc.nvim
+
+        # k8s
+        kubectl
+        kind
+
+        # helm
+        kubernetes-helm
+        kubernetes-helmPlugins.helm-s3
+        kubernetes-helmPlugins.helm-git
+        kubernetes-helmPlugins.helm-diff
+        helmfile
+        helm-docs
+
+        # cloud
+        awscli2
       ];
       sessionVariables = {
         LANG = "en_US.UTF-8";
@@ -52,17 +67,19 @@
                block = "disk_space";
                path = "/";
                info_type = "available";
-               interval = 60;
+               interval = 10;
                warning = 20.0;
                alert = 10.0;
             }
             {
-              block = "memory";
-              format = " $icon $mem_total_used_percents.eng(w:2) ";
-            }
-            {
               block = "cpu";
               interval = 1;
+            }
+            {
+              block = "memory";
+              interval = 1;
+              warning_mem = 70;
+              critical_mem = 90;
             }
             {
               block = "load";
