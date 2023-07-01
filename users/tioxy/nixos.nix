@@ -94,6 +94,9 @@
       enable = true;
       plugins = [
         { name = "tide"; src = pkgs.fishPlugins.tide.src; }
+        { name = "autopair"; src = pkgs.fishPlugins.autopair.src; }
+        { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
+        { name = "done"; src = pkgs.fishPlugins.done.src; }
       ];
 
       shellAliases = {
@@ -103,7 +106,8 @@
 
       interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" (
       [] ++ [
-        (builtins.readFile ./config.fish)
+        (builtins.readFile ./fish/tide.fish)
+        (builtins.readFile ./fish/config.fish)
         "set -g SHELL ${pkgs.fish}/bin/fish"
       ])); 
     };
