@@ -19,7 +19,17 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Audio
   virtualisation.docker.enable = true;
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio = {
+    enable = true;
+    support32Bit = true;
+    extraConfig = ''
+      load-module module-combine-sink
+      unload-module module-suspend-on-idle
+    '';
+  };
 
   services.xserver = {
     enable = true;
@@ -72,6 +82,7 @@
     wget
     git
     kitty
+    fzf
     gtkmm3 # copy/paste in vmware tools
   ];
 

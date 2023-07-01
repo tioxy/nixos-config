@@ -8,7 +8,7 @@
   users.users.root = {
     isSystemUser = true;
     home = "/root";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" "audio" ];
     shell = pkgs.fish;
     password = "root";
   };

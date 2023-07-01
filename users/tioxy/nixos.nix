@@ -25,6 +25,10 @@
       };
     };
 
+    services.dunst = {
+      enable = true;
+    };
+
     programs.ssh = {
       enable = true;
       matchBlocks = {
@@ -58,8 +62,7 @@
             }
             {
               block = "memory";
-              format_mem = " $icon $mem_used_percents ";
-              format_swap = " $icon $swap_used_percents ";
+              format = " $icon $mem_total_used_percents.eng(w:2) ";
             }
             {
               block = "cpu";
@@ -69,6 +72,9 @@
               block = "load";
               interval = 1;
               format = " $icon $1m ";
+            }
+            {
+              block = "sound";
             }
             {
               block = "time";
@@ -238,7 +244,7 @@
   users.users.tioxy = {
     isNormalUser = true;
     home = "/home/tioxy";
-    extraGroups = [ "wheel" "root" "docker" ];
+    extraGroups = [ "root" "wheel" "docker" "audio" ];
     shell = pkgs.fish;
     password = "tioxy";
   };
