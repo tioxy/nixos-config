@@ -234,7 +234,7 @@
   users.users.tioxy = {
     isNormalUser = true;
     home = "/home/tioxy";
-    extraGroups = [ "wheel" "root" ];
+    extraGroups = [ "wheel" "root" "docker" ];
     shell = pkgs.fish;
     password = "tioxy";
   };
