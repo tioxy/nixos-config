@@ -145,6 +145,11 @@
 
         # Filetree
         {
+          plugin = nvim-tree-lua;
+          type = "lua";
+          config = builtins.readFile(./neovim/nvim-tree.lua);
+        }
+        {
           plugin = telescope-nvim;
           type = "lua";
           config = builtins.readFile(./neovim/telescope.lua);
@@ -204,6 +209,11 @@
         nvim-web-devicons
         plenary-nvim # telescope
         vim-gitgutter
+        {
+          plugin = mini-nvim;
+          type = "lua";
+          config = builtins.readFile(./neovim/mini.lua);
+        }
         nerdcommenter
         {
           plugin = nerdcommenter;
