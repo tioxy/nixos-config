@@ -15,6 +15,7 @@
         ripgrep # telescope
         fd # telescope
         nodejs # coc.nvim
+        zig
         wget
         fzf
 
