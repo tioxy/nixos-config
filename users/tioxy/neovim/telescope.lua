@@ -8,7 +8,7 @@ require("telescope").load_extension "file_browser"
 
 vim.api.nvim_set_keymap(
   "n",
-  "<Space>b",
+  "<Space>tb",
   ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
   { noremap = true }
 )
