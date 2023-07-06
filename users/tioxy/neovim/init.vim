@@ -12,7 +12,7 @@ set number
 set wildmode=longest,list
 set cc=80
 syntax on
-set mouse=r
+set mouse=a
 set clipboard=unnamedplus
 filetype plugin on
 filetype plugin indent on

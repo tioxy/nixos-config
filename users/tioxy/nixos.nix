@@ -15,6 +15,8 @@
         ripgrep # telescope
         fd # telescope
         nodejs # coc.nvim
+        wget
+        fzf
 
         # k8s
         kubectl
@@ -256,6 +258,7 @@
         branch.autosetuprebase = "always";
         color.ui = true;
         core.askPass = "";
+        core.fileMode = false;
         credential.helper = "store";
         github.user = "tioxy";
         push.default = "tracking";

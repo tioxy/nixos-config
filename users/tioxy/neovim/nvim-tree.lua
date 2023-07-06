@@ -126,3 +126,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
         end
     end,
 })
+
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap('n', '<Space>t', '<Cmd>NvimTreeToggle<CR>', opts)
