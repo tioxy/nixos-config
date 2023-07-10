@@ -14,7 +14,10 @@
         tree
         ripgrep # telescope
         fd # telescope
-        nodejs # coc.nvim
+        tree-sitter
+        nodejs # tree-sitter
+        unzip # mason
+        stylua # null-ls
         zig
         wget
         fzf
@@ -40,6 +43,13 @@
         LC_ALL = "en_US.UTF-8";
         EDITOR = "nvim";
         PAGER = "less -FirSwX";
+      };
+
+      pointerCursor = {
+        name = "Vanilla-DMZ";
+	      package = pkgs.vanilla-dmz;
+	      size = 128;
+	      x11.enable = true;
       };
     };
 
@@ -137,107 +147,11 @@
 
     programs.neovim = {
       enable = true;
+    };
 
-      plugins = with pkgs.vimPlugins; [
-        # Theme
-        {
-          plugin = nord-nvim;
-          type = "lua";
-          config = builtins.readFile(./neovim/nord.lua);
-        }
-
-        # Filetree
-        {
-          plugin = nvim-tree-lua;
-          type = "lua";
-          config = builtins.readFile(./neovim/nvim-tree.lua);
-        }
-        {
-          plugin = telescope-nvim;
-          type = "lua";
-          config = builtins.readFile(./neovim/telescope.lua);
-        }
-        telescope-fzf-native-nvim
-        telescope-file-browser-nvim
-
-        # Syntax highligh
-        nvim-treesitter
-        nvim-treesitter-parsers.go
-        nvim-treesitter-parsers.java
-        nvim-treesitter-parsers.json
-        nvim-treesitter-parsers.python
-        nvim-treesitter-parsers.yaml
-
-        # Snippets
-        {
-          plugin = ultisnips;
-          config = ''
-            let g:UltiSnipsExpandTrigger="<tab>"
-            let g:UltiSnipsJumpForwardTrigger="<c-b>"
-            let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-            let g:UltiSnipsEditSplit="vertical"
-          '';
-        }
-        vim-snippets
-
-        # Start
-        vim-startify
-
-        # Tab/Status bars
-        {
-          plugin = barbar-nvim;
-          type = "lua";
-          config = builtins.readFile(./neovim/barbar.lua);
-        }
-        vim-airline
-        {
-          plugin = vim-airline-themes;
-          type = "lua";
-          config = builtins.readFile(./neovim/airline-themes.lua);
-        }
-
-        # Code completion
-        coc-nvim
-        coc-snippets
-        telescope-coc-nvim
-        coc-git
-        coc-go
-        coc-java
-        coc-json
-        coc-python
-        coc-yaml
-
-        # Helpers
-        gitsigns-nvim # barbar
-        nvim-web-devicons
-        plenary-nvim # telescope
-        vim-gitgutter
-        {
-          plugin = mini-nvim;
-          type = "lua";
-          config = builtins.readFile(./neovim/mini.lua);
-        }
-        nerdcommenter
-        {
-          plugin = nerdcommenter;
-          config = ''
-             filetype plugin on
-             let g:NERDCreateDefaultMappings = 1
-             let g:NERDSpaceDelims = 1
-             let g:NERDCompactSexyComs = 1
-             let g:NERDDefaultAlign = 'left'
-             let g:NERDAltDelims_java = 1
-             let g:NERDAltDelims_go = 1
-             let g:NERDAltDelims_py = 1
-             let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-             let g:NERDCommentEmptyLines = 1
-             let g:NERDTrimTrailingWhitespace = 1
-             let g:NERDToggleCheckAllLines = 1
-          '';
-        }
-      ];
-
-      extraConfig = builtins.readFile(./neovim/init.vim);
+    xdg.configFile.nvim = {  
+      source = ./nvim;
+      recursive = true;
     };
 
     services.gpg-agent = {
@@ -266,6 +180,10 @@
         init.defaultBranch = "main";
         safe.directory = ["*"];
       };
+    };
+
+    programs.lazygit = {
+      enable = true;
     };
   };
 
