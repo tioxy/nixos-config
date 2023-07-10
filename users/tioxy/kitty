@@ -6,6 +6,9 @@ map super+c copy_or_interrupt
 enable_audio_bell yes
 window_alert_on_bell yes
 
+# Generic
+font_size 22
+
 # Nord Colorscheme for Kitty
 # Based on:
 # - https://gist.github.com/marcusramberg/64010234c95a93d953e8c79fdaf94192
