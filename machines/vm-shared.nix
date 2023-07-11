@@ -8,9 +8,25 @@
     '';
 
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      substituters = ["https://mitchellh-nixos-config.cachix.org"];
-      trusted-public-keys = ["mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="];
+      trusted-users = [
+        "@wheel"
+      ];
+      experimental-features = [
+        "nix-command" "flakes"
+      ];
+      substituters = [
+        "https://mitchellh-nixos-config.cachix.org"
+      ];
+      trusted-public-keys = [
+        "mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="
+      ];
+
+      extra-substituters = [
+        "https://cache.floxdev.com"
+      ];
+      extra-trusted-public-keys = [
+        "_FLOX_PUBLIC_KEYS()"
+      ];
     };
   };
 
