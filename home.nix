@@ -1,12 +1,5 @@
 { config, pkgs, lib, ... }:
 
-# let
-# kube_ps1 = builtins.fetchGit {
-#   name = "kube-ps1";
-#   url = "https://github.com/jonmosco/kube-ps1";
-#   ref = "refs/tags/v0.8.0";
-# };
-# in 
 { 
   programs.home-manager.enable = true;
   
