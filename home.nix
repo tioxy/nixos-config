@@ -43,6 +43,7 @@
       LC_ALL = "en_US.UTF-8";
       EDITOR = "nvim";
       PAGER = "less -FirSwX";
+      KUBE_PS1_SYMBOL_DEFAULT = "k8s";
     };
   };
 
@@ -66,9 +67,13 @@
         "git"
         "sudo"
         "asdf"
+        "kube-ps1"
       ];
       theme = "steeef";
     };
+    initExtra = ''
+      RPROMPT='$(kube_ps1)'
+    '';
   };
 
 
