@@ -73,7 +73,7 @@
           yellow="%F{220}"
           red="%F{160}"
           turquoise="%F{81}"
-          orange="%F{166}"
+          orange="%F{208}"
           purple="%F{135}"
           hotpink="%F{161}"
           limegreen="%F{118}"
