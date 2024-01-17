@@ -17,14 +17,11 @@
     homeDirectory = "/home/tioxy";
     stateVersion = "23.11";
     packages = with pkgs; [
-      jq
-      bat
       htop
       watch
       tree
       wget
       fzf
-      _1password
 
       # nvim
       ripgrep
@@ -35,7 +32,13 @@
       stylua
       gcc
 
+      # Personal choices
+      jq
+      bat
       awscli2
+      dive
+      _1password
+      yq-go
     ];
     sessionVariables = {
       LANG = "en_US.UTF-8";
@@ -56,6 +59,7 @@
       ll = "ls -l";
       update = "home-manager switch";
       k = "kubectl";
+      colors = "spectrum_ls";
     };
     history = {
       size = 10000;
@@ -72,7 +76,38 @@
       theme = "steeef";
     };
     initExtra = ''
-      RPROMPT='$(kube_ps1)'
+      if [[ $terminfo[colors] -ge 256 ]]; then
+          yellow="%F{220}"
+          red="%F{160}"
+          turquoise="%F{81}"
+          orange="%F{166}"
+          purple="%F{135}"
+          hotpink="%F{161}"
+          limegreen="%F{118}"
+      else
+          yellow="%F{yellow}"
+          red="%F{red}"
+          turquoise="%F{cyan}"
+          orange="%F{yellow}"
+          purple="%F{magenta}"
+          hotpink="%F{red}"
+          limegreen="%F{green}"
+      fi
+
+      user_color="$yellow"
+      if [[ $USER == "root" ]]; then
+        user_color="$red"
+      fi
+
+      uname_output="$(uname -a)"
+      host_color="$purple"
+      if [[ $uname_output == Darwin* ]]; then
+        host_color="$orange"
+      fi
+
+      PROMPT=$'
+      %{$user_color%}%n\$\{PR_RST}@%{$host_color%}%m\$\{PR_RST} %~\$\{PR_RST} $vcs_info_msg_0_$(virtualenv_info) $(kube_ps1)
+      $ '
     '';
   };
 
