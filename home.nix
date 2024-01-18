@@ -51,6 +51,7 @@ in {
       dive
       _1password
       yq-go
+      gh
     ];
     sessionVariables = {
       LANG = "en_US.UTF-8";
