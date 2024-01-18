@@ -1,13 +1,32 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, builtins, ... }:
 
-{ 
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+  isLinux = pkgs.stdenv.isLinux;
+
+  settings = {
+    "linux" = {
+      "homeDirectory" = "/home/tioxy";
+    };
+    "darwin" = {
+      "homeDirectory" = "/Users/tioxy";
+    };
+  };
+
+  distro = if isDarwin then
+    settings.darwin
+  else if isLinux then
+    settings.linux
+  else
+    settings.linux;
+in {
   programs.home-manager.enable = true;
   
   nixpkgs.config.allowUnfree = true;
 
   home = {
     username = "tioxy";
-    homeDirectory = "/home/tioxy";
+    homeDirectory = distro.homeDirectory;
     stateVersion = "23.11";
     packages = with pkgs; [
       htop
