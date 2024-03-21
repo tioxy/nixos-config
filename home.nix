@@ -130,6 +130,11 @@ in {
     recursive = true;
   };
 
+  xdg.configFile.wezterm = {
+    source = ./wezterm;
+    recursive = true;
+  };
+
   programs.neovim = {
     enable = true;
     viAlias = true;
